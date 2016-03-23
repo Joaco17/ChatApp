@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" ng-app="application">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>zChat</title>
+    <link href="assets/css/app.css" rel="stylesheet" type="text/css">
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/routes.js"></script>
+    <script src="assets/js/angular.js"></script>
+      
+  <script src="chat-js/jquery.min.js"></script>
+  <script src="chat-js/strophe.min.js"></script>
+  <script src="chat-js/strophe.roster.js"></script>
+      
+      <script src="chat-js/chat.js"></script>
+  </head>
+
+  <style>
+    .message-input, .message-input .inline-label, .menu-bar {margin-bottom: 0;}
+    #sidebar, .messages {border-right: 1px solid #eee;}
+    .message-side-bar {border-left: 1px solid #eee;}
+    .avatar-section {border-top: 1px solid #eee;}
+  </style>
+
+  <body>
+    <div class="grid-frame">
+      <div zf-panel position="left" id="sidebar" class="medium-grid-block collapse medium-3 large-3 vertical">
+        <div class="grid-content collapse shrink hide-for-medium">
+          <a href="" class="secondary button expand" zf-close>Close</a>
+        </div>
+        <div class="grid-content collapse shrink">
+          <button onclick="remove_friend()">Remove Friend</button>
+        </div>
+        <div class="grid-content">
+          
+          <section class="block-list">
+            <header>Rooms</header>
+            <ul id="rooms-list">
+            </ul>
+          </section>
+
+          <section class="block-list">
+            <header>People</header>
+            <ul id="friends-list">
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <div class="grid-block collapse medium-9 large-9 vertical">
+        <div id="header" class="shrink collapse grid-content">
+          <ul class="menu-bar primary">
+            <li class="hide-for-medium"><a zf-open="sidebar" href="#">Menu</a></li>
+            <li><a href="javascript:add_friend();">Add Friend</a></li>
+            <li><a href="javascript:join_group()">Join Group</a></li>
+            <li><a href="javascript:logout()">Logout</a></li>
+          </ul>
+        </div>
+        <div class="grid-block" id="message_boxes">
+          
+        </div>
+      </div>
+
+    </div>
+    
+      
+  </body>
+</html>
+
+<!-- ui-view  -->
