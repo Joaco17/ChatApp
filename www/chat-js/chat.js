@@ -402,7 +402,17 @@ function join_group()
         html_message_boxes = html_message_boxes + '</span></div></div>';
         document.getElementById("message_boxes").innerHTML = document.getElementById("message_boxes").innerHTML + html_message_boxes;
     }   
+    
+    
+    /**PRESIONAR INTRO Y ENVIAR MENSAJE**/
+    document.getElementById('"'+group_name+ '_group_input'+'"').onkeydown = function(event) {
+    if (event.keyCode == 13) {
+        alert('5');
+    }
 }
+}
+
+
 
 function open_group_chat_box(name)
 {
