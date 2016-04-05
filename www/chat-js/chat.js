@@ -231,7 +231,7 @@ function subscribeStanza(stanza)
     //
 
 
-    if (confirm(from_id + " has sent you friend request. Do you want to accept?") == true) 
+    if (confirm(from_id + " has sent you friend request. Do you want to accept?") === true) 
     {
         conn.send($pres({ to: from_id, type: "subscribed" }));
         conn.send($pres({ to: from_id, type: "subscribe" }));
@@ -268,7 +268,7 @@ function unsubscribeStanza(stanza)
 function remove_friend()
 {
     var person_name = prompt("Please enter the name");
-    if (person_name != null) 
+    if (person_name !== null) 
     {
         person_name = person_name + "@localhost";
         conn.send($pres({ to: person_name, type: "unsubscribe" }));
@@ -280,7 +280,7 @@ function remove_friend()
 function add_friend()
 {
     var person_name = prompt("Please enter the name");
-    if (person_name != null) 
+    if (person_name !== null) 
     {
         person_name = person_name + "@localhost";
         conn.send($pres({ to: person_name, type: "subscribe" }));
@@ -297,12 +297,12 @@ function new_friend_added(jid)
 
     var html_message_boxes = "";
 
-    html_message_boxes = html_message_boxes + '<div style="display: none" class="grid-block small-12 medium-12 vertical" id="';
+    html_message_boxes = html_message_boxes + '<div data-position="fixed" style="display: none" class="grid-block small-12 medium-12 vertical" id="';
     html_message_boxes = html_message_boxes +  jid + '_message_box"><div class="grid-content">'; 
     html_message_boxes = html_message_boxes + '<div id="' + jid + 'message_box_text' + '">';
     html_message_boxes = html_message_boxes + '</div>';
     html_message_boxes = html_message_boxes + '</div><div class="message-input grid-content collapse shrink"><span class="inline-label">';
-    html_message_boxes = html_message_boxes + '<input type="text" id="' + jid + "_input" + '" placeholder="Message"><a href="#" class="button" onclick="send_message(\''+ jid + '\')">Send</a>';
+    html_message_boxes = html_message_boxes + '<input type="text"  id="' + jid + "_input" + '" placeholder="Message"><a href="#" class="button" value="submit" onclick="send_message(\''+ jid + '\')">Send</a>';
     html_message_boxes = html_message_boxes + '</span></div></div>';
     document.getElementById("message_boxes").innerHTML = document.getElementById("message_boxes").innerHTML + html_message_boxes;
 }
@@ -316,7 +316,7 @@ var current_open_chat_box = "";
 
 function open_chat_box(jid)
 {
-    if(current_open_chat_box == "")
+    if(current_open_chat_box === "")
     {
         var id = jid + '_message_box';
         document.getElementById(id).style.display = "block";
@@ -370,7 +370,10 @@ function send_message(to)
     var text = document.getElementById(to + "_input").value;
     var message = $msg({to: to, from: conn.jid, type: "chat"}).c("body").t(text);
     conn.send(message.tree());  
-    document.getElementById(to + "message_box_text").innerHTML = document.getElementById(to + "message_box_text").innerHTML + "<h4>" + localStorage.getItem("username") + "</h4><p>" + text + "</p>";
+    document.getElementById(to + "message_box_text").innerHTML = document.getElementById(to + "message_box_text").innerHTML + "<h4><b>" + localStorage.getItem("username") + "</b></h4><p>" + text + "</p>";
+    
+    text.val('');
+    
 }
 
 //create new group and join
