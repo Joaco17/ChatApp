@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>zChat</title>
+    <title>ChatAPP</title>
     <link href="assets/css/app.css" rel="stylesheet" type="text/css">
     <script src="assets/js/app.js"></script>
     <script src="assets/js/routes.js"></script>
@@ -23,7 +23,7 @@
     .avatar-section {border-top: 1px solid #eee;}
   </style>
 
-  <body>
+   <body>
     <div class="grid-frame">
       <div zf-panel position="left" id="sidebar" class="medium-grid-block collapse medium-3 large-3 vertical">
         <div class="grid-content collapse shrink hide-for-medium">
@@ -32,20 +32,7 @@
         <div class="grid-content collapse shrink">
           <button onclick="remove_friend()">Remove Friend</button>
         </div>
-        <div class="grid-content">
-          
-          <section class="block-list">
-            <header>Rooms</header>
-            <ul id="rooms-list">
-            </ul>
-          </section>
-
-          <section class="block-list">
-            <header>People</header>
-            <ul id="friends-list">
-            </ul>
-          </section>
-        </div>
+        
       </div>
 
       <div class="grid-block collapse medium-9 large-9 vertical">
@@ -56,6 +43,16 @@
             <li><a href="javascript:logout()">Logout</a></li>
           </ul>
         </div>
+          
+          <div id= "lista" class="grid-content">
+          
+              <section class="block-list">
+            <header>People</header>
+            <ul id="friends-list">
+            </ul>
+          </section>
+        </div>
+          
         <div class="messageBox" id="message_boxes">
           
         </div>

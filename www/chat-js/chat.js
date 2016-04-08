@@ -86,6 +86,9 @@ function connected()
     conn.addHandler(group_chat_message_received, null, "message", "groupchat");
 }
 
+var nombre;
+var jidpropio;
+
 function get_friends(items)
 {
     if(items != undefined)
@@ -99,24 +102,27 @@ function get_friends(items)
                 if(items[count].subscription == "both")
                 {
                     var display_name = Strophe.getNodeFromJid(items[count].jid);
+                    jidpropio = items[count].jid;
 
-                    html_friends_list = html_friends_list + "<li id='open_chat_box_list_item" + items[count].jid + "'>" + "<a href='javascript:open_chat_box(\"" + items[count].jid + "\")'>" + display_name + "<span class='block-list-label' id='" + items[count].jid  + "_unread_messages" + "'>0</span><span class='block-list-label' id='" + items[count].jid  + "_change_status" + "'></span></a></li>";
+                    html_friends_list = html_friends_list + "<li id='open_chat_box_list_item" + items[count].jid + "'>" + "<a href='chat-js/index.html'>" + display_name + "<span class='block-list-label' id='" + items[count].jid  + "_unread_messages" + "'>0</span><span class='block-list-label' id='" + items[count].jid  + "_change_status" + "'></span></a></li>";
 
-                    html_message_boxes = html_message_boxes + '<div style="display: none" class="grid-block small-12 medium-12 vertical" id="';
-                    html_message_boxes = html_message_boxes + items[count].jid + '_message_box"><div class="grid-content">'; 
-                    html_message_boxes = html_message_boxes + '<div id="' + items[count].jid + 'message_box_text' + '">';
-                    html_message_boxes = html_message_boxes + '</div>';
-                    html_message_boxes = html_message_boxes + '</div><div class="message-input grid-content collapse shrink"><span class="inline-label">';
-                    html_message_boxes = html_message_boxes + '<input type="text" id="' + items[count].jid + "_input" + '" placeholder="Message"><a href="#" class="button" onclick="send_message(\''+ items[count].jid + '\')">Send</a>';
-                    html_message_boxes = html_message_boxes + '</span></div></div>';
+                    
                 }
             }
 
             document.getElementById("message_boxes").innerHTML = html_message_boxes;
             document.getElementById("friends-list").innerHTML = html_friends_list;
+            
+            
+            
         }
     }
 }
+
+function cargar_chat(){
+    open_chat_box(jidpropio);
+}
+
 
 var online_users = [];
 
@@ -402,17 +408,7 @@ function join_group()
         html_message_boxes = html_message_boxes + '</span></div></div>';
         document.getElementById("message_boxes").innerHTML = document.getElementById("message_boxes").innerHTML + html_message_boxes;
     }   
-    
-    
-    /**PRESIONAR INTRO Y ENVIAR MENSAJE**/
-    document.getElementById('"'+group_name+ '_group_input'+'"').onkeydown = function(event) {
-    if (event.keyCode == 13) {
-        alert('5');
-    }
 }
-}
-
-
 
 function open_group_chat_box(name)
 {
