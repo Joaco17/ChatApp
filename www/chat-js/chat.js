@@ -88,24 +88,30 @@ function connected()
 
 var nombre;
 var jidpropio;
+var html_chat_name = "";
 
 function get_friends(items)
 {
+   
+    
     if(items != undefined)
     {
         if (items.length != 0)
         {
+            alert(html_chat_name);
             var html_friends_list = "";
             var html_message_boxes = "";
+           
             for(var count = 0; count < items.length; count++)
             {
                 if(items[count].subscription == "both")
                 {
                     var display_name = Strophe.getNodeFromJid(items[count].jid);
                     jidpropio = items[count].jid;
+                   
 
-                    html_friends_list = html_friends_list + "<li id='open_chat_box_list_item" + items[count].jid + "'>" + "<a href='chat-js/index.html'>" + display_name + "<span class='block-list-label' id='" + items[count].jid  + "_unread_messages" + "'>0</span><span class='block-list-label' id='" + items[count].jid  + "_change_status" + "'></span></a></li>";
-
+                    html_friends_list = html_friends_list + "<li style='font-size:19px' id='open_chat_box_list_item" + items[count].jid + "'>" + "<a href='chat-js/index.html'>" + display_name + "<span class='block-list-label' id='" + items[count].jid  + "_unread_messages" + "'>0</span><span class='block-list-label' id='" + items[count].jid  + "_change_status" + "'></span></a></li>";
+                               
                     
                 }
             }
@@ -113,14 +119,30 @@ function get_friends(items)
             document.getElementById("message_boxes").innerHTML = html_message_boxes;
             document.getElementById("friends-list").innerHTML = html_friends_list;
             
+           
             
             
+            $("#lista li").live('click',function (){
+                    var full_line = $(this).text();
+                    nombre = full_line.slice(0,-1);
+                    alert(nombre);
+                    html_chat_name = html_chat_name + nombre;
+                    alert(html_chat_name);
+            });
+                       
         }
     }
 }
 
+      
+
+
+
 function cargar_chat(){
-    open_chat_box(jidpropio);
+     alert("valor al cargar"+html_chat_name);
+var div = document.getElementById('nombre-chat');
+
+div.innerHTML = div.innerHTML + 'e'+html_chat_name;
 }
 
 
@@ -356,7 +378,7 @@ function message_received(stanza)
         from = Strophe.getBareJidFromJid(from); 
         var display_name = Strophe.getNodeFromJid(from);
 
-        document.getElementById(from + "message_box_text").innerHTML = document.getElementById(from + "message_box_text").innerHTML + "<h4>" + display_name + "</h4><p>" + body + "</p>";
+        document.getElementById(from + "message_box_text").innerHTML = document.getElementById(from + "message_box_text").innerHTML + "<h4>" + display_name + "</h4><p align='right'>" + body + "</p>";
 
         if(from + "_message_box" != current_open_chat_box)
         {
@@ -376,7 +398,7 @@ function send_message(to)
     var text = document.getElementById(to + "_input").value;
     var message = $msg({to: to, from: conn.jid, type: "chat"}).c("body").t(text);
     conn.send(message.tree());  
-    document.getElementById(to + "message_box_text").innerHTML = document.getElementById(to + "message_box_text").innerHTML + "<h4><b>" + localStorage.getItem("username") + "</b></h4><p>" + text + "</p>";
+    document.getElementById(to + "message_box_text").innerHTML = document.getElementById(to + "message_box_text").innerHTML + "<h4><b>" + localStorage.getItem("username") + "</b></h4><p align='left'>" + text + "</p>";
     
     text.val('');
     

@@ -536,7 +536,7 @@ html {
   box-sizing: inherit; }
 
 body {
-  background: #fff;
+  background: #e6e6fa;
   color: #222;
   padding: 0;
   margin: 0;
@@ -3582,14 +3582,14 @@ meter {
     right: 1rem;
     top: 1rem; }
   .menu-bar.primary {
-    background: #00558b; }
+    background: #2B2B2B; }
     .menu-bar.primary a {
       color: #fff; }
       .menu-bar.primary a:hover {
-        background: #0065a5;
+        background: #2B2B2B;
         color: #fff; }
     .menu-bar.primary .is-active > a {
-      background: #0065a5;
+      background: #2B2B2B;
       color: #fff; }
     .menu-bar.primary .iconic * {
       fill: #fff;
