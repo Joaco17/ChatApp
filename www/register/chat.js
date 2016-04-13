@@ -1,4 +1,5 @@
 var conn = null;
+var BOSH_SERVICE = 'http://localhost:5280/http-bind';
 
 function onConnectionStatus(nStatus)
 {
@@ -39,6 +40,7 @@ function register()
         return;
     }
     
-    conn = new Strophe.Connection("http://localhost:5280/http-bind");
+     alert("Registro pulsado");
+    conn = new Strophe.Connection(BOSH_SERVICE);
     conn.register.connect("localhost", onConnectionStatus, 60, 1);
 }

@@ -98,7 +98,6 @@ function get_friends(items)
     {
         if (items.length != 0)
         {
-            alert(html_chat_name);
             var html_friends_list = "";
             var html_message_boxes = "";
            
@@ -123,11 +122,14 @@ function get_friends(items)
             
             
             $("#lista li").live('click',function (){
+                //EXTRACCION DEL VALOR DE LA LINEA PARA SACAR EL NOMBRE DE LA PERSONA TO CHAT   
                     var full_line = $(this).text();
                     nombre = full_line.slice(0,-1);
-                    alert(nombre);
                     html_chat_name = html_chat_name + nombre;
-                    alert(html_chat_name);
+                
+                //GUARDAMOS EL VALOR DEL NOMBRE EN LOCAL PARA EXTRAERLO EN EL SIGUIENTE HTML
+                    var local_nombre = html_chat_name;
+                    localStorage.setItem("nombre", local_nombre);
             });
                        
         }
@@ -139,10 +141,11 @@ function get_friends(items)
 
 
 function cargar_chat(){
-     alert("valor al cargar"+html_chat_name);
-var div = document.getElementById('nombre-chat');
+    var carga_nombre = localStorage.getItem("nombre");
 
-div.innerHTML = div.innerHTML + 'e'+html_chat_name;
+    var div = document.getElementById('nombre-chat');
+
+    div.innerHTML = div.innerHTML +carga_nombre;
 }
 
 
