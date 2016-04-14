@@ -107,6 +107,106 @@ var BuildHTML = function () {
   return BuildHTML;
 }();
 
+window.onload=function(){
+
+ var messenger = new Messenger();
+  var buildHTML = new BuildHTML();
+
+  var input = document.getElementById('input');
+  var send = document.getElementById('send');
+  var content = document.getElementById('content');
+  var inner = document.getElementById('inner');
+
+  function safeText(text) {
+   
+    var hijosmesswrapper=content.getElementsByClassName('message-wrapper');
+    var ultimo=hijosmesswrapper[hijosmesswrapper.length-1];
+    var clastext=ultimo.getElementsByClassName('text-wrapper');
+    clastext[0].innerHTML=text;
+  }
+
+    function buildSent(message) {
+    console.log('sending: ', message.innerHTML);
+
+var elemento=document.createElement(buildHTML.me(message.innerHTML));
+    content.appendChild(elemento);
+    safeText(message.text);
+  }
+
+ function buildSent(message) {
+    console.log('sending: ', message.text);
+
+    $content.append(buildHTML.me(message.text));
+    safeText(message.text);
+    animateText();
+
+    scrollBottom();
+  }
+
+  function buildRecieved(message) {
+    console.log('recieving: ', message.text);
+
+var elemento=document.createElement(buildHTML.them(message.innerHTML));
+    content.appendChild(elemento);
+
+    safeText(message.text);
+   
+  }
+
+function sendMessage() {
+    var text = input.val();
+    messenger.send(text);
+
+    input.val('');
+    input.focus();
+  }
+
+ messenger.onSend = buildSent;
+  messenger.onRecieve = buildRecieved;
+
+  setTimeout(function () {
+    messenger.recieve('Hello there!');
+  }, 1500);
+
+  setTimeout(function () {
+    messenger.recieve('Do you like this? If so check out more on my page...');
+  }, 5000);
+
+  setTimeout(function () {
+    messenger.recieve('Or maybe just give it a like!');
+  }, 7500);
+
+  input.focus();
+
+  send.addEventListener('click', function (e) {
+    sendMessage();
+  });
+
+  input.addEventListener('keydown', function (e) {
+    var key = e.which || e.keyCode;
+
+    if (key === 13) {
+      // enter key
+      alert("has pulsado intro");
+      e.preventDefault();
+
+      sendMessage();
+
+
+}
+
+ function buildSent(message) {
+    console.log('sending: ', message.text);
+
+    $content.append(buildHTML.me(message.text));
+    safeText(message.text);
+    animateText();
+
+    scrollBottom();
+  }
+});
+
+/*
 $(document).ready(function () {
   var messenger = new Messenger();
   var buildHTML = new BuildHTML();
@@ -135,15 +235,7 @@ $(document).ready(function () {
     });
   }
 
-  function buildSent(message) {
-    console.log('sending: ', message.text);
-
-    $content.append(buildHTML.me(message.text));
-    safeText(message.text);
-    animateText();
-
-    scrollBottom();
-  }
+ 
 
   function buildRecieved(message) {
     console.log('recieving: ', message.text);
@@ -189,10 +281,9 @@ $(document).ready(function () {
 
     if (key === 13) {
       // enter key
-      alert("has pulsado intro")
       e.preventDefault();
 
       sendMessage();
     }
   });
-});
+}); */

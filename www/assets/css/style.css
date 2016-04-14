@@ -30,7 +30,7 @@ body {
 .wrapper .inner {
   overflow: scroll;
   height: 520px;
-  padding-top: 64px;
+  padding-top: 48px;
   background: #e6e6fa;
   -ms-overflow-style: none;
   overflow: -moz-scrollbars-none;
@@ -235,6 +235,7 @@ body {
 .message-wrapper.me .circle-wrapper, .message-wrapper.me .text-wrapper {
   background: #FF5722;
   float: right;
+  padding-right: 5px;
   color: #333333;
 }
 .message-wrapper.me .text-wrapper {

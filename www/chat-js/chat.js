@@ -109,7 +109,7 @@ function get_friends(items)
                     jidpropio = items[count].jid;
                    
 
-                    html_friends_list = html_friends_list + "<li style='font-size:19px' id='open_chat_box_list_item" + items[count].jid + "'>" + "<a href='chat-js/index.html'>" + display_name + "<span class='block-list-label' id='" + items[count].jid  + "_unread_messages" + "'>0</span><span class='block-list-label' id='" + items[count].jid  + "_change_status" + "'></span></a></li>";
+                    html_friends_list = html_friends_list + "<li style='font-size:19px' id='open_chat-" + items[count].jid + "'>" + "<a href='chat-js/index.html'>" + display_name + "<span class='block-list-label' id='" + items[count].jid  + "_unread_messages" + "'>0</span><span class='block-list-label' id='" + items[count].jid  + "_change_status" + "'></span></a></li>";
                                
                     
                 }
@@ -152,6 +152,8 @@ function cargar_chat(){
 var online_users = [];
 
 
+
+
 function status_changed_unavailable(stanza)
 {
     try
@@ -178,7 +180,7 @@ function status_changed_unavailable(stanza)
 
             /* Multi User Chat Presense Ends */ 
             
-            var index = online_users.indexOf(jid);
+           var index = online_users.indexOf(jid);
             if (index > -1) 
             {
                 online_users.splice(index, 1);
@@ -231,7 +233,7 @@ function status_changed_available(stanza)
 
             /* Multi User Chat Presense Ends */
             
-            if(type == undefined)
+           if(type == undefined)
             {
                 online_users[online_users.length] = jid;
                 document.getElementById(jid  + "_change_status").innerHTML = "&#9635;&nbsp;&nbsp;";
@@ -262,7 +264,7 @@ function subscribeStanza(stanza)
     //
 
 
-    if (confirm(from_id + " has sent you friend request. Do you want to accept?") === true) 
+    if (confirm(from_id + " te ha enviado una solicitud de amistad. ¿Quieres aceptarla?") === true) 
     {
         conn.send($pres({ to: from_id, type: "subscribed" }));
         conn.send($pres({ to: from_id, type: "subscribe" }));
@@ -280,7 +282,7 @@ function subscribedStanza(stanza)
     var from_id = stanza.getAttribute("from");
     new_friend_added(from_id);
 
-    alert("You and " + from_id + " are now friends");
+    alert("Tu y " + from_id + " sois amigos");
 
     return true;
 }
@@ -289,7 +291,7 @@ function unsubscribeStanza(stanza)
 {
     var from_id = stanza.getAttribute("from");
     conn.send($pres({ to: from_id, type: "unsubscribe" }));
-    alert("You and " + from_id + " are not friends anymore");
+    alert("Tu y  " + from_id + " ya no sois amigos");
 
     friend_removed(from_id);
 
@@ -298,7 +300,7 @@ function unsubscribeStanza(stanza)
 
 function remove_friend()
 {
-    var person_name = prompt("Please enter the name");
+    var person_name = prompt("Introduce el nombre");
     if (person_name !== null) 
     {
         person_name = person_name + "@localhost";
@@ -310,7 +312,7 @@ function remove_friend()
 //send friend request
 function add_friend()
 {
-    var person_name = prompt("Please enter the name");
+    var person_name = prompt("Introduce el nombre");
     if (person_name !== null) 
     {
         person_name = person_name + "@localhost";
@@ -323,7 +325,7 @@ function new_friend_added(jid)
     var display_name = Strophe.getNodeFromJid(jid);
     
     var html_friends_list = "";
-    html_friends_list = html_friends_list + "<li id='open_chat_box_list_item" + jid + "'>" + "<a href='javascript:open_chat_box(\"" + jid + "\")'>" + display_name + "<span class='block-list-label' id='" + jid  + "_unread_messages" + "'>0</span><span class='block-list-label' id='" + jid  + "_change_status" + "'></span></a></li>";
+    html_friends_list = html_friends_list + "<li id='open_chat-" + jid + "'>" + "<a href='javascript:open_chat_box(\"" + jid + "\")'>" + display_name + "<span class='block-list-label' id='" + jid  + "_unread_messages" + "'>0</span><span class='block-list-label' id='" + jid  + "_change_status" + "'></span></a></li>";
     document.getElementById("friends-list").innerHTML = document.getElementById("friends-list").innerHTML + html_friends_list;
 
     var html_message_boxes = "";
@@ -340,7 +342,7 @@ function new_friend_added(jid)
 
 function friend_removed(jid)
 {
-    document.getElementById("open_chat_box_list_item" + jid).remove();
+    document.getElementById("open_chat-" + jid).remove();
 }
 
 var current_open_chat_box = "";
@@ -401,13 +403,18 @@ function send_message(to)
     var text = document.getElementById(to + "_input").value;
     var message = $msg({to: to, from: conn.jid, type: "chat"}).c("body").t(text);
     conn.send(message.tree());  
-    document.getElementById(to + "message_box_text").innerHTML = document.getElementById(to + "message_box_text").innerHTML + "<h4><b>" + localStorage.getItem("username") + "</b></h4><p align='left'>" + text + "</p>";
+    
+    /**CONSTRUCCION DEL MENSAJE ENVIADO**/
+    
+
+    //document.getElementById(to + "message_box_text").innerHTML = document.getElementById(to + "message_box_text").innerHTML + "<h4><b>" + localStorage.getItem("username") + "</b></h4><p align='left'>" + text + "</p>";
     
     text.val('');
     
 }
 
 //create new group and join
+
 function join_group()
 {
     var group_name = prompt("Enter group name");
